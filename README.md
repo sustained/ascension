@@ -23,7 +23,8 @@ php artisan key:generate
 # Run
 
 ```
-npm run dev
-npm run api
+npm run webpack
+npm run laravel
 npm run redis
+npm run queue
 ```
