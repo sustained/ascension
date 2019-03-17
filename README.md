@@ -12,12 +12,18 @@ cd ascension
 composer install
 npm install
 cp .env.example .env
+php artisan horizon:install
+php artisan queue:failed-table
+php artisan telescope:install
+php artisan migrate
+php artisan db:seed
+php artisan key:generate
 ```
 
 # Run
 
 ```
-npm run serve
+npm run dev
 npm run api
 npm run redis
 ```
