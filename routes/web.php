@@ -24,6 +24,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/learn/{vue?}', function () {
+    return view("learn");
+})->where('vue', '[\/\w\.-]*');
+
 Route::group(['prefix' => 'api'], function () {
     Route::get('/courses', function () {
         return Course::all();
