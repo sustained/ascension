@@ -1,0 +1,43 @@
+{
+    "levels": [
+        {
+            "id": 1,
+
+            "title": "Swedish Basics",
+
+            "words": [
+                { "source": "be", "target": "vara", "data": { "type": "verb", "form": "infinitive" } },
+                { "source": "I", "target": "jag", "data": { "type": "pronoun", "form": "subject" } },
+                { "source": "I am", "target": "jag är", "data": { "type": "sentence", "form": "fragment" } },
+                { "source": "you", "target": "du", "data": { "type": "pronoun", "form": "subject" } },
+                { "source": "you are", "target": "du är", "data": { "type": "sentence", "form": "fragment" } },
+                { "source": "a, an", "target": "en", "data": { "type": "article", "form": "indefinite", "gender": "common" } },
+                { "source": "a, an", "target": "ett", "data": { "type": "article", "form": "indefinite", "gender": "neuter" } },
+                { "source": "girl", "target": "flicka", "data": { "type": "noun", "form": "indefinite", "gender": "common" } },
+                { "source": "boy", "target": "pojke", "data": { "type": "noun", "form": "indefinite", "gender": "common" } },
+                { "source": "woman", "target": "kvinna", "data": { "type": "noun", "form": "indefinite", "gender": "common" } },
+                { "source": "man", "target": "man", "data": { "type": "noun", "form": "indefinite", "gender": "common" } },
+                { "source": "she", "target": "hon", "data": { "type": "pronoun", "form": "subject" } },
+                { "source": "he", "target": "han", "data": { "type": "pronoun", "form": "subject" } },
+                { "source": "eat", "target": "äta", "data": { "type": "verb", "form": "infinitive" } },
+                { "source": "drink", "target": "dricka", "data": { "type": "verb", "form": "infinitive" } },
+                { "source": "I eat/am eating", "target": "jag äter", "data": { "type": "sentence", "form": "fragment" } },
+                { "source": "I drink/am drinking", "target": "jag dricker", "data": { "type": "sentence", "form": "fragment" } },
+                { "source": "apple", "target": "apple", "data": { "type": "noun", "form": "indefinite", "gender": "neuter" } },
+                { "source": "cheese", "target": "ost", "data": { "type": "noun", "form": "indefinite", "gender": "common" } },
+                { "source": "water", "target": "vatten", "data": { "type": "noun", "form": "indefinite", "gender": "neuter" } },
+                { "source": "juice", "target": "juice", "data": { "type": "noun", "form": "indefinite", "gender": "common" } }
+            ]
+        },
+
+        {
+            "id": 2,
+
+            "title": "Swedish Definite Forms",
+
+            "words": [
+                { "source": "the man", "target": "mannen", "data": { "type": "noun", "form": "definite" } }
+            ]
+        }
+    ]
+}
