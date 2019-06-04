@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 use App\Course;
 
@@ -13,6 +14,31 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Course::class, 1)->create();
+        DB::table('courses')->insert([
+            [
+                'title' => 'Test English <-> Swedish Course',
+                'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title' => 'Test English <-> German Course',
+                'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title' => 'Test English <-> English Course',
+                'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title' => 'Test Swedish <-> German Course',
+                'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]
+        ]);
     }
 }
