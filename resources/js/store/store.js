@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPathify from "vuex-pathify";
 
 import rootState from "./state.js";
 import course from "./course/state.js";
@@ -13,7 +14,9 @@ const store = new Vuex.Store({
   modules: {
     course,
     courses
-  }
+  },
+
+  plugins: [VuexPathify.plugin]
 });
 
 export default store;
