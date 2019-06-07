@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +10,7 @@
 |
 */
 
-use App\Course;
-use App\Level;
-
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,28 +24,20 @@ Route::get('/learn/{vue?}', function () {
     return view("learn");
 })->where('vue', '[\/\w\.-]*');
 
-Route::group(['prefix' => 'api'], function () {
-    Route::get('/courses', function () {
-        return Course::all();
-    });
+Route::group(['prefix' => 'api', 'middleware' => 'ajax'], function () {
+    Route::get('/courses', 'APIController@courses');
 
-    Route::get('/courses/{course}', function ($id) {
-        $load = Input::get('load');
-        if ($load && in_array($load, ['levels', 'levels.words']))
-            return Course::with(explode(',', $load))->find($id);
+    Route::get('/courses/{id}', 'APIController@course');
 
-        return Course::find($id);
-    });
+    Route::get('/levels/{id}', 'APIController@levels');
 
-    Route::get('/levels/{level}', function ($id) {
-        $load = Input::get('load');
-        if ($load && in_array($load, ['course']))
-            return Level::with(explode(',', $load))->find($id);
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
 
-        return Level::find($id);
-    });
-
-    Route::post('/session', function () {
-        return ['not-implemented' => true];
+        Route::post('/session', function () {
+            return ['not-implemented' => true];
+        });
     });
 });
