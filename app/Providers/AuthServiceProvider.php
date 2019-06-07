@@ -23,8 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        // \Laravel\Passport\Passport::withCookieSerialization();
 
-        //
+        $this->registerPolicies();
     }
 }
