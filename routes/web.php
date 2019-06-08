@@ -12,13 +12,11 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'AppController@welcome')->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'AppController@index')->name('home');
 
 Route::get('/learn/{vue?}', function () {
     return view("learn");
