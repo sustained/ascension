@@ -52,13 +52,11 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "pre-autoload-dump": [
-            "@php artisan vendor:publish --tag=telescope-assets --force",
-            "@php artisan vendor:publish --tag=horizon-assets --force"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --tag=telescope-assets --force",
+            "@php artisan vendor:publish --tag=horizon-assets --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
