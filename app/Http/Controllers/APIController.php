@@ -8,11 +8,17 @@ use App\Course;
 
 class APIController extends Controller
 {
+    /*
+        Return all courses, unpaginated.
+    */
     public function courses()
     {
         return Course::all();
     }
 
+    /*
+        Return course by ID, optionally with levels or levels + words.
+    */
     public function course($id)
     {
         $load = Input::get('load');
@@ -23,6 +29,9 @@ class APIController extends Controller
         return Course::find($id);
     }
 
+    /*
+        Return levels by course ID.
+    */
     public function levels($id)
     {
         $load = Input::get('load');
@@ -31,5 +40,13 @@ class APIController extends Controller
             return Level::with(explode(',', $load))->find($id);
 
         return Level::find($id);
+    }
+
+    /*
+        Return logged in user, for debugging.
+    */
+    public function user(Request $request)
+    {
+        return $request->user();
     }
 }
