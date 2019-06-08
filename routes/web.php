@@ -18,9 +18,7 @@ Auth::routes();
 
 Route::get('/home', 'AppController@index')->name('home');
 
-Route::get('/learn/{vue?}', function () {
-    return view("learn");
-})->where('vue', '[\/\w\.-]*');
+Route::get('/learn/{vue?}', 'AppController@learn')->where('vue', '[\/\w\.-]*');
 
 Route::group(['prefix' => 'api', 'middleware' => 'ajax'], function () {
     Route::get('/courses', 'APIController@courses');
