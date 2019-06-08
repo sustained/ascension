@@ -32,12 +32,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'ajax'], function () {
     Route::get('/levels/{id}', 'APIController@levels');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-
-        Route::post('/session', function () {
-            return ['not-implemented' => true];
-        });
+        Route::get('/user', 'APIController@user');
     });
 });
