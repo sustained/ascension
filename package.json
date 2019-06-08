@@ -12,7 +12,8 @@
         "webpack": "npm run development",
         "laravel": "php artisan serve",
         "redis": "redis-server",
-        "queue": "php artisan horizon"
+        "queue": "php artisan horizon",
+        "heroku-postbuild": "npm run production"
     },
     "devDependencies": {
         "axios": "^0.18.1",
