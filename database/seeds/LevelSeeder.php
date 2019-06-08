@@ -15,7 +15,7 @@ class LevelSeeder extends Seeder
     {
         // factory(\App\Level::class, 1)->create(['course_id' => 1]);
 
-        for ($courseId = 1; $courseId <= 4; $courseId++) {
+        for ($courseId = 1; $courseId <= 2; $courseId++) {
             $json = File::get("database/seeds/json/courses/" . $courseId . ".json");
             $data = json_decode($json, true);
 
