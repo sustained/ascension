@@ -2,9 +2,9 @@
   <div>
     <h2>List Courses</h2>
 
-    <p v-if="loading">Loading courses...</p>
+    <p v-if="isLoading">Loading courses...</p>
 
-    <ul v-else-if="loaded">
+    <ul v-else-if="isLoaded">
       <li v-for="course in courses" :key="course.id">
         <router-link :to="`/courses/${course.id}`">{{ course.title }}</router-link>
       </li>
@@ -13,23 +13,29 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { get, dispatch } from "vuex-pathify";
+
+import store from "../store/store.js";
 
 export default {
-  created() {
-    if (this.$store.state.courses.state !== "loaded")
-      this.$store.dispatch("courses/load");
+  async beforeRouteEnter(to, from, next) {
+    if (store.state.courses.state !== "loaded") {
+      dispatch("courses/load");
+    }
+
+    next();
   },
 
   computed: {
-    ...mapState("courses", ["courses", "state"]),
+    courses: get("courses/courses"),
+    loaded: get("courses/state"),
 
-    loaded() {
-      return this.state === "loaded";
+    isLoaded() {
+      return this.loaded === "loaded";
     },
 
-    loading() {
-      return this.state === "loading";
+    isLoading() {
+      return this.loaded === "loading";
     }
   }
 };

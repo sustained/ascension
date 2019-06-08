@@ -1,35 +1,42 @@
 <template>
-  <div>
+  <div v-if="isLoaded">
     <h2>View Level</h2>
 
-    <ul v-if="loaded">
-      <li v-for="word in currentLevel.words" :key="word.id">{{ word.source }} -> {{ word.target }}</li>
+    <ul>
+      <li v-for="word in words" :key="word.id">{{ word.source }} -> {{ word.target }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+// import { mapState, mapGetters } from "vuex";
+import { get } from "vuex-pathify";
 
 export default {
   props: ["course_id", "level_id"],
 
   async created() {
-    if (!this.$store.getters["course/loaded"](this.course_id)) {
+    console.log("created", this.course_id, this.level_id);
+
+    // if (!this.$store.state.currentLevelId) {
+
+    // }
+
+    if (!this.$store.getters["course/isLoaded"](this.course_id)) {
+      console.log("loading course");
       await this.$store.dispatch("course/load", this.course_id);
+      console.log(this.$store.state);
     }
 
-    if (!this.$store.state.currentLevelIndex) {
-      this.$store.dispatch("course/setLevel", this.level_id);
-    }
+    console.log("setting current level");
+    this.$store.commit("course/setLevel", this.level_id);
   },
 
   computed: {
-    loaded() {
-      return this.currentLevel && this.currentLevel.words;
-    },
-
-    ...mapGetters("course", ["currentLevel"])
+    ...{
+      isLoaded: get("course/isLoaded"),
+      words: get("course/words")
+    }
   }
 };
 </script>

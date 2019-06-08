@@ -4,44 +4,46 @@ export default {
   namespaced: true,
 
   state: {
-    courses: [],
+    course: {
+      id: null,
+      author_id: null,
+      title: null,
+      created_at: null,
+      updated_at: null,
+      levels: []
+    },
+
+    currentLevel: null,
+
     state: "unloaded",
-    error: null,
-    currentCourseIndex: null,
-    currentLevelIndex: null
+    error: null
+
+    // currentCourseIndex: null,
+    // currentLevelIndex: null
   },
 
   mutations: {
-    addCourse: (state, payload) => {
-      state.courses.push(payload);
+    setCourse: (state, payload) => {
+      state.course = Object.assign({}, payload);
     },
 
-    setCurrentCourse: (state, payload) => (state.currentCourseIndex = payload),
-    setCurrentLevel: (state, payload) => (state.currentLevelIndex = payload),
+    setLevel: (state, payload) => {
+      state.currentLevel = state.course.levels.find(level => level.id == payload);
+    },
 
     setLoadingState: (state, payload) => (state.state = payload),
     setErrorMessage: (state, payload) => (state.error = payload)
   },
 
   actions: {
-    setCourse({ state, commit }, id) {
-      let index = state.courses.findIndex(course => course.id === id);
-      if (index === -1) return;
-      commit("setCurrentCourse", index);
-    },
-
-    setLevel({ state, getters, commit }, id) {
-      state.currentLevelIndex = getters.currentCourse.levels.findIndex(e => e.id === id);
-    },
-
     load({ state, commit }, id) {
       commit("setLoadingState", "loading");
 
       return http
         .get(`/courses/${id}?load=levels.words`)
         .then(response => {
-          commit("addCourse", response.data);
-          commit("setCurrentCourse", state.courses.length - 1);
+          commit("setCourse", response.data);
+          // commit("setCurrentCourse", state.courses.length - 1);
           commit("setLoadingState", "loaded");
         })
         .catch(error => {
@@ -52,23 +54,18 @@ export default {
   },
 
   getters: {
-    loaded(state) {
-      return courseId => !!state.courses.find(course => course && course.id == courseId);
+    /*
+      Has a course been loaded and does it match the passed course ID?
+    */
+    isLoaded(state) {
+      return courseId => state.course.id && state.course.id == courseId;
     },
 
-    currentCourse(state) {
-      return state.courses[state.currentCourseIndex];
-    },
-
-    currentLevel(state) {
-      if (
-        !state.courses.length ||
-        !state.courses[state.currentCourseIndex] ||
-        !state.courses[state.currentCourseIndex].levels
-      )
-        return;
-
-      return state.courses[state.currentCourseIndex].levels[state.currentLevelIndex];
+    /*
+      Return the words for the current level, if possible.
+    */
+    words(state, getters) {
+      return state.currentLevel ? state.currentLevel.words : null;
     }
   }
 };

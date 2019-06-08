@@ -1,36 +1,41 @@
 <template>
-  <div v-if="state === 'loaded'">
-    <h2>View Course &ndash; {{ currentCourse.title }}</h2>
-    <h3>Levels</h3>
+  <div>
+    <div v-if="state === 'loaded'">
+      <h2>View Course &ndash; {{ course.title }}</h2>
+      <h3>Levels</h3>
 
-    <ul>
-      <li v-for="level in currentCourse.levels" :key="level.id">
-        <router-link
-          :to="{ name: 'level', params: { level_id: level.id, course_id: currentCourse.id } }"
-        >{{ level.title }}</router-link>
-      </li>
-    </ul>
+      <ul>
+        <li v-for="level in course.levels" :key="level.id">
+          <router-link
+            :to="{ name: 'level', params: { level_id: level.id, course_id: course.id } }"
+          >{{ level.title }}</router-link>
+        </li>
+      </ul>
+    </div>
+
+    <div v-else>Please wait...</div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-
-import requiresCourse from "../mixins/requires_course.js";
+import { get } from "vuex-pathify";
 
 export default {
-  mixins: [requiresCourse],
-
   computed: {
-    ...mapState("course", ["state"]),
-    ...mapGetters("course", ["currentCourse"])
+    state: get("course/state"),
+    course: get("course/course")
   },
 
   created() {
-    if (!this.$store.getters["course/loaded"](this.$route.params.course_id)) {
-      console.log("loading course");
+    const courseId = this.$route.params.course_id;
+    const loaded = this.$store.getters["course/isLoaded"](courseId);
 
-      this.$store.dispatch("course/load", this.$route.params.course_id);
+    console.log(`Course #${courseId} isLoaded: ` + loaded);
+
+    if (!loaded) {
+      console.log("Loading course...");
+
+      this.$store.dispatch("course/load", courseId);
     }
   }
 };
