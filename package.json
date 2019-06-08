@@ -13,7 +13,7 @@
         "laravel": "php artisan serve",
         "redis": "redis-server",
         "queue": "php artisan horizon",
-        "heroku-postbuild": "npm run production"
+        "heroku-postbuild": "npm run development"
     },
     "devDependencies": {
         "axios": "^0.18.1",
