@@ -1,14 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,700");
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@tailwind base;
 
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+html {
+    font-family: "Encode Sans Expanded", sans-serif;
 }
+
+[v-cloak] {
+    display: none;
+}
+
+@import "themes/light.scss";
+@import "themes/dark.scss";
+
+@import "components/button.scss";
+
+@tailwind components;
+
+@tailwind utilities;

@@ -14,11 +14,31 @@ files.keys().map(key => {
   );
 });
 
+import http from "./http.js";
 import router from "./router/router.js";
 import store from "./store/store.js";
+
+window.axios = http;
 
 const app = new Vue({
   store,
   router,
-  el: "#app"
+  el: "#app",
+
+  data: {
+    currentTheme: "dark"
+  },
+
+  methods: {
+    toggleTheme() {
+      if (this.currentTheme === "dark") this.currentTheme = "light";
+      else this.currentTheme = "dark";
+    }
+  },
+
+  computed: {
+    themeClass() {
+      return `theme-${this.currentTheme}`;
+    }
+  }
 });
