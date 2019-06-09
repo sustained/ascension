@@ -20,8 +20,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <div id="app" :class="themeClass">
+        <nav class="bg-header text-default">
+            Ascension
+
+            <button class="btn blue" @click="toggleTheme()">Toggle Theme</button>
+        </nav>
+
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="display: none;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Ascension') }}
@@ -72,7 +78,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="bg-container">
             @yield('content')
         </main>
     </div>
