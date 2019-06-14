@@ -1,0 +1,30 @@
+html {
+    font-family: "Open Sans", sans-serif;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+html,
+body,
+div#app {
+    @apply bg-container text-default min-h-screen;
+}
+
+.nav-main {
+    @apply bg-header text-default flex justify-between items-center px-2;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-main ul {
+    display: flex;
+}
+
+.nav-main ul li {
+    @apply p-4;
+}
