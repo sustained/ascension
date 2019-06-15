@@ -2,6 +2,10 @@ html {
     font-family: "Open Sans", sans-serif;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 [v-cloak] {
     display: none;
 }
@@ -10,6 +14,30 @@ html,
 body,
 div#app {
     @apply bg-container text-default min-h-screen;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.row {
+    display: flex;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.col {
+    // flex: 1;
+    padding: 10px;
+}
+
+.box {
+    @apply bg-gray-700 rounded-lg;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-main {
