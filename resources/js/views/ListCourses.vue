@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h2>List Courses</h2>
+  <div class="container">
+    <!-- <h2>List Courses</h2> -->
 
     <p v-if="isLoading">Loading courses...</p>
 
-    <ul v-else-if="isLoaded">
-      <li v-for="course in courses" :key="course.id">
-        <router-link :to="`/courses/${course.id}`">{{ course.title }}</router-link>
+    <ul v-else-if="isLoaded" class="flex flex-wrap">
+      <li v-for="course in courses" :key="course.id" class="w-1/4 p-4">
+        <div class="box">
+          <router-link :to="`/courses/${course.id}`">{{ course.title }}</router-link>
+        </div>
       </li>
     </ul>
   </div>
