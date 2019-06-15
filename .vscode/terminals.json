@@ -1,5 +1,5 @@
 {
-    "autorun": true,
+    "autorun": false,
     "autokill": true,
     "terminals": [
         {
@@ -16,22 +16,10 @@
             "command": "npm run watch"
         },
         {
-            "name": "Laravel",
-            "icon": "flame",
-            "description": "Serve the Laravel application.",
-            "command": "npm run laravel"
-        },
-        {
             "name": "Horizon",
             "icon": "list-unordered",
             "description": "Launch the Horizon job queue.",
             "command": "php artisan queue"
-        },
-        {
-            "name": "Redis",
-            "icon": "database",
-            "description": "Start the redis server.",
-            "command": "npm run redis"
         }
     ]
 }
