@@ -33,15 +33,15 @@
 
             <ul>
                 <li>
-                    <a href="/home">Home</a>
+                    <router-link to="/">Home</router-link>
                 </li>
 
                 <li>
-                    <a href="/learn/courses">Courses</a>
+                    <router-link to="/courses">Courses</router-link>
                 </li>
 
                 <li>
-                    <a href="/forums">Forums</a>
+                    <router-link to="/forums">Forums</router-link>
                 </li>
             </ul>
 
