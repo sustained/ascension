@@ -1,9 +1,27 @@
 <template>
-  <div>Home</div>
+  <div>
+    <h1>Home</h1>
+
+    <h2>User (DEBUG)</h2>
+
+    <pre>{{ user }}</pre>
+  </div>
 </template>
 
 <script>
-export default {};
+import http from "../http.js";
+
+export default {
+  data() {
+    return {
+      user: null
+    };
+  },
+
+  created() {
+    http.get("user").then(result => (this.user = result.data));
+  }
+};
 </script>
 
 <style scoped>
