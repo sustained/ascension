@@ -31,8 +31,8 @@ class AppController extends Controller
         return view('welcome');
     }
 
-    public function learn()
+    public function vue_app()
     {
-        return view('learn');
+        return view('vue_app');
     }
 }

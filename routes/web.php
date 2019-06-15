@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,15 +11,7 @@
 |
 */
 
-use Illuminate\Http\Request;
-
-Route::get('/', 'AppController@welcome')->name('welcome');
-
 Auth::routes();
-
-Route::get('/home', 'AppController@index')->name('home');
-
-Route::get('/learn/{vue?}', 'AppController@learn')->where('vue', '[\/\w\.-]*');
 
 Route::group(['prefix' => 'api', 'middleware' => 'ajax'], function () {
     Route::get('/courses', 'APIController@courses');
@@ -31,3 +24,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'ajax'], function () {
         Route::get('/user', 'APIController@user');
     });
 });
+
+Route::get('/{vue?}', 'AppController@vue_app')->where('vue', '[\/\w\.-]*');
