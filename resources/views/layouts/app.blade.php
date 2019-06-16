@@ -22,7 +22,7 @@
 
 <body>
     <div id="app" :class="themeClass">
-        <nav class="nav-main">
+        <nav class="nav-main fixed w-full">
             <h1 class="nav-brand">
                 <router-link to="/">
                     {{ config('app.name', 'Ascension') }}
