@@ -16,6 +16,7 @@ const tailwindcss = require("tailwindcss");
 mix.js("resources/js/app.js", "public/js");
 
 mix.sass("resources/sass/app.scss", "public/css").options({
+  extractVueStyles: true,
   processCssUrls: false,
   postCss: [tailwindcss("./tailwind.js")]
 });
