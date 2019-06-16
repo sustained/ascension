@@ -16,6 +16,11 @@ div#app {
     @apply bg-container text-default min-h-screen;
 }
 
+.main-container {
+    @apply bg-container min-h-screen;
+    padding-top: 56px;
+}
+
 .container {
     margin: 0 auto;
     max-width: 1200px;

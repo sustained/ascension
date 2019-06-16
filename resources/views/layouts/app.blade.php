@@ -72,7 +72,7 @@
             @endguest
         </nav>
 
-        <main class="bg-container">
+        <main class="main-container">
             @yield('content')
         </main>
     </div>
