@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import VuexPathify from "vuex-pathify";
 
 import rootState from "./state.js";
+import user from "./user/state.js";
 import course from "./course/state.js";
 import courses from "./courses/state.js";
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
   ...rootState,
 
   modules: {
+    user,
     course,
     courses
   },
