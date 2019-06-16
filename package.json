@@ -13,7 +13,8 @@
         "laravel": "php artisan serve",
         "redis": "redis-server",
         "queue": "php artisan horizon",
-        "heroku-postbuild": "npm run development"
+        "heroku-postbuild": "npm run development",
+        "nuke": " php artisan cache:clear && php artisan route:clear && php artisan config:clear && php artisan view:clear"
     },
     "devDependencies": {
         "axios": "^0.18.1",
