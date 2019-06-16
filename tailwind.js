@@ -4,7 +4,13 @@ module.exports = {
   theme: {
     extend: {
       textColor: {
-        default: "var(--text-default-colour)",
+        default: "var(--text-default-colour)"
+      },
+
+      backgroundColor: {
+        header: "var(--header-bg-colour)",
+        container: "var(--container-bg-colour)",
+        button: "var(--button-bg-colour)",
 
         /*
           Some colours to play with from various dark themes that we know
@@ -29,12 +35,6 @@ module.exports = {
         "vscode-bg-6": "var(--vscode-menu-bar-bg)",
         "vscode-bg-7": "var(--vscode-icon-bg)",
         "vscode-bg-8": "var(--vscode-icon-active-bg)"
-      },
-
-      backgroundColor: {
-        header: "var(--header-bg-colour)",
-        container: "var(--container-bg-colour)",
-        button: "var(--button-bg-colour)"
       }
     }
   },
