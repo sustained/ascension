@@ -28,8 +28,44 @@ div#app {
 }
 
 .col {
-    // flex: 1;
+    display: flex;
+    flex: 1;
     padding: 10px;
+}
+
+.card {
+    border-radius: 0.25rem;
+    @apply p-4;
+
+    h1 {
+        font-size: 2rem;
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+.is-invalid {
+    @apply border-red-900 border-2 border-solid;
+}
+
+.separator {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+.separator::after {
+    content: "";
+    position: absolute;
+    bottom: -0.36rem;
+    height: 1px;
+    display: block;
+    width: 100%;
+    // background: red;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-control {
+    @apply w-full p-2 text-gray-500 bg-discord-bg-2;
 }
 
 a.nav-link {

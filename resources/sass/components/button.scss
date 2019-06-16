@@ -1,11 +1,14 @@
 .btn {
-    @apply font-bold py-2 px-4 rounded text-xs;
+    @apply font-bold py-2 px-4 rounded text-sm font-medium;
 }
 
 .btn.blue {
     @apply bg-blue-500 text-white;
 }
-
 .btn.blue:hover {
     @apply bg-blue-700;
+}
+
+.btn.muted {
+    @apply bg-discord-bg-4;
 }

@@ -2,7 +2,72 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="flex justify-center items-center h-screen pt-16">
+        <div class="w-1/2">
+            <div class="card bg-discord-bg-1 shadow-lg">
+                <h1>Login</h1>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div class="row items-center">
+                        <div class="col">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        </div>
+
+                        <div class="col flex-1">
+                            <input
+                                id="email"
+                                type="email"
+                                class="shadow-inner text-gray-200 rounded-sm form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                name="email"
+                                value="{{ old('email') }}"
+                                required
+                                autofocus>
+                        </div>
+                    </div>
+
+                    <div class="row items-center">
+                        <div class="col">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        </div>
+
+                        <div class="col flex-1">
+                            <input
+                                id="password"
+                                type="password"
+                                class="shadow-inner text-gray-200 rounded-sm form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                name="password"
+                            required>
+                        </div>
+                    </div>
+
+                    <div class="row p-3 items-center justify-between bg-discord-bg-3 mt-2 -mx-4 -mb-4 rounded-b-lg">
+                        <div class="flex items-center btn muted">
+                            <input
+                                class="mr-2 w-4 h-4"
+                                type="checkbox"
+                                name="remember"
+                                id="remember" {{ old('remember') ? 'checked' : '' }}
+                                />
+
+                            <label class="text-sm" for="remember">
+                                {{ __('Remember me') }}
+                            </label>
+                        </div>
+
+                        <div>
+                            <button class="btn blue mr-4">Login</button>
+
+                            <button class="btn muted">Forgot Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+        <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -69,5 +134,6 @@
             </div>
         </div>
     </div>
+    -->
 </div>
 @endsection
