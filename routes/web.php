@@ -27,16 +27,6 @@ Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 */
 
-Route::group(['prefix' => 'ajax', 'middleware' => 'ajax'], function () {
-    // Route::get('/courses', 'APIController@courses');
-
-    Route::get('/courses/{id}', 'APIController@course');
-
-    Route::get('/levels/{id}', 'APIController@levels');
-
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/user', 'APIController@user');
-    });
-});
+Route::group(['prefix' => 'ajax', 'middleware' => 'ajax'], function () { });
 
 Route::get('/{vue?}', 'AppController@vue_app')->where('vue', '^((?!api).)*');

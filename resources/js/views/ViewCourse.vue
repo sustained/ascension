@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="avoid-fixed-nav">
     <div v-if="state === 'loaded'">
       <h2>View Course &ndash; {{ course.title }}</h2>
       <h3>Levels</h3>

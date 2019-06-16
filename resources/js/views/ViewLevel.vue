@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoaded">
+  <div v-if="isLoaded" class="avoid-fixed-nav">
     <h2>View Level</h2>
 
     <ul>

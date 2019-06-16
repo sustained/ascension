@@ -24,3 +24,5 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::get('/courses', 'APIController@courses');
+Route::get('/courses/{id}', 'APIController@course');
+Route::get('/levels/{id}', 'APIController@levels');
