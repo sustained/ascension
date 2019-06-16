@@ -2,14 +2,15 @@
 
 import Vue from "vue";
 
-const files = require.context("./components", true, /Base[A-Z]\w+\.(vue|js)$/i);
+const files = require.context("./components/base", true, /\w+\.(vue|js)$/i);
 
 files.keys().map(key => {
   Vue.component(
     key
       .split("/")
       .pop()
-      .split(".")[0],
+      .split(".")[0]
+      .replace("Base", "Ascension"),
     files(key).default
   );
 });
