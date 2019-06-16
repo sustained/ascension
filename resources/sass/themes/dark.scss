@@ -3,4 +3,29 @@
     --container-bg-colour: theme("colors.gray.900");
 
     --text-default-colour: #fff;
+
+    /*
+        Some colours to play with from various dark themes that we know
+        work well, until we can figure out our own colour scheme.
+    */
+
+    --discord-channel-list-bg: #2f3136;
+    --discord-channel-list-active-bg: #40444b;
+    --discord-channel-list-hover-bg: #292b2f;
+    --discord-server-list-hover-bg: #202225;
+    --discord-main-content-bg: #36393f;
+    --discord-text-input-bg: #484b52;
+    --discord-search-input-bg: #202225;
+    --discord-server-popup-item-bg: #282b30;
+    --discord-server-popup-item-hover-bg: #25282d;
+    --discord-main-content-fg: #dcddde;
+
+    --vscode-activity-bar-bg: #333333;
+    --vscode-main-content-bg: #1e1e1e;
+    --vscode-explorer-bg: #252526;
+    --vscode-explorer-hover-bg: #37373d;
+    --vscode-explorer-active-bg: #094771;
+    --vscode-menu-bar-bg: #3c3c3c;
+    --vscode-icon-bg: #adadad;
+    --vscode-icon-active-bg: #e6e6e6;
 }
