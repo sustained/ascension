@@ -16,12 +16,24 @@ div#app {
     @apply bg-container text-default min-h-screen;
 }
 
-.main-container {
-    @apply bg-container min-h-screen;
+// .main-container {
+//     @apply bg-container min-h-screen;
+// }
+
+.center-full {
+    @apply flex justify-center items-center min-h-screen avoid-fixed-nav;
+}
+
+.container,
+.container-fixed {
+    @apply min-h-screen;
+}
+
+.avoid-fixed-nav {
     padding-top: 56px;
 }
 
-.container {
+.container-fixed {
     margin: 0 auto;
     max-width: 1200px;
 }
