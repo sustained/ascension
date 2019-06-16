@@ -45,36 +45,26 @@
                 </li>
             </ul>
 
-            @guest
-            <ul>
+            <ul  v-if="loggedIn">
                 <li>
-                    <router-link to="/login">{{ __('Login') }}</router-link>
-                </li>
-
-                @if (Route::has('register'))
-                <li>
-                    <router-link to="/register">{{ __('Register') }}</router-link>
-                </li>
-                @endif
-            </ul>
-            @else
-            <ul>
-                <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" class="nav-link" @click="logoutUser">
                         {{ __('Logout') }}
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                        @csrf
-                    </form>
                 </li>
             </ul>
-            @endguest
+
+            <ul v-else>
+                <li>
+                    <router-link class="nav-link" to="/user/login">{{ __('Login') }}</router-link>
+                </li>
+
+                <li>
+                    <router-link class="nav-link" to="/user/register">{{ __('Register') }}</router-link>
+                </li>
+            </ul>
         </nav>
 
-        <main class="main-container">
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 </body>
 </html>
