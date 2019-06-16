@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container avoid-fixed-nav">
     <!-- <h2>List Courses</h2> -->
+
+    <course-language-sidebar/>
 
     <p v-if="isLoading">Loading courses...</p>
 
@@ -19,7 +21,11 @@ import { get, dispatch } from "vuex-pathify";
 
 import store from "../store/store.js";
 
+import CourseLanguageSidebar from "./courses/CourseLanguageSidebar.vue";
+
 export default {
+  components: { CourseLanguageSidebar },
+
   async beforeRouteEnter(to, from, next) {
     if (store.state.courses.state !== "loaded") {
       dispatch("courses/load");
