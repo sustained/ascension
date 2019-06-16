@@ -32,6 +32,20 @@ div#app {
     padding: 10px;
 }
 
+a.nav-link {
+    @apply p-4;
+}
+
+a[href="/"].router-link-exact-active,
+a:not([href="/"]).router-link-active {
+    @apply border-blue-400 border-b-2 border-solid;
+    font-weight: bold;
+}
+
+.nav-brand a {
+    border-bottom-width: 0 !important;
+}
+
 .box {
     @apply bg-gray-700 rounded-lg;
     flex: 1;
