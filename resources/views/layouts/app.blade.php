@@ -24,24 +24,24 @@
     <div id="app" :class="themeClass">
         <nav class="nav-main">
             <h1 class="nav-brand">
-                <a href="{{ url('/') }}">
+                <router-link to="/">
                     {{ config('app.name', 'Ascension') }}
-                </a>
+                </router-link>
             </h1>
 
             {{-- <button class="btn blue" @click="toggleTheme()">Toggle Theme</button> --}}
 
             <ul>
                 <li>
-                    <router-link to="/">Home</router-link>
+                    <router-link class="nav-link" to="/">Home</router-link>
                 </li>
 
                 <li>
-                    <router-link to="/courses">Courses</router-link>
+                    <router-link class="nav-link" to="/courses">Courses</router-link>
                 </li>
 
                 <li>
-                    <router-link to="/forums">Forums</router-link>
+                    <router-link class="nav-link" to="/forums">Forums</router-link>
                 </li>
             </ul>
 
