@@ -21,6 +21,8 @@ import store from "./store/store.js";
 
 window.axios = http;
 
+import { get } from "vuex-pathify";
+
 const app = new Vue({
   store,
   router,
@@ -34,12 +36,21 @@ const app = new Vue({
     toggleTheme() {
       if (this.currentTheme === "dark") this.currentTheme = "light";
       else this.currentTheme = "dark";
+    },
+
+    logoutUser() {
+      this.$store.dispatch("user/logout").then(() => {
+        this.$router.push("/");
+      });
     }
   },
 
   computed: {
     themeClass() {
       return `theme-${this.currentTheme}`;
-    }
+    },
+    loggedIn: get("user/isLoggedIn")
   }
 });
+
+export default app;
