@@ -13,4 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', 'APIController@user');
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'JWTAuthController@login');
+    Route::post('logout', 'JWTAuthController@logout')->name('logout');
+    Route::post('register', 'JWTAuthController@register');
+    Route::post('refresh', 'JWTAuthController@refresh');
+    Route::post('reset', 'JWTAuthController@reset');
+    Route::post('recovery', 'JWTAuthController@recovery');
+    Route::post('me', 'JWTAuthController@me');
+});
+
+Route::get('/courses', 'APIController@courses');
