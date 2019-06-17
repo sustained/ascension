@@ -10,11 +10,8 @@ export function loginUser(credentials) {
         resolve(data);
       })
       .catch(({ response }) => {
-        console.log("rejecting login promise");
-        reject({
-          error: response.data.error,
-          status: response.status
-        });
+        console.log("rejecting login promise", response);
+        reject(response.data);
       });
   });
 }
@@ -23,12 +20,13 @@ export function registerUser(credentials) {
   return new Promise((resolve, reject) => {
     http
       .post("/auth/register", credentials)
-      .then(response => resolve(response))
+      .then(response => {
+        console.log("resolving register promise");
+        resolve(response);
+      })
       .catch(({ response }) => {
-        reject({
-          error: response.data.error,
-          status: response.status
-        });
+        console.log("rejecting register promise", response);
+        reject(response.data);
       });
   });
 }
@@ -59,6 +57,14 @@ export function checkUser() {
         });
       });
   });
+}
+
+export function setUser(user) {
+  localStorage.getItem("user");
+
+  if (!user) return null;
+
+  return JSON.parse(user);
 }
 
 export function getUser() {
