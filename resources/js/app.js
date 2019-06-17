@@ -28,9 +28,7 @@ const app = new Vue({
   router,
   el: "#app",
 
-  data: {
-    currentTheme: "dark"
-  },
+  data: {},
 
   methods: {
     toggleTheme() {
@@ -46,10 +44,14 @@ const app = new Vue({
   },
 
   computed: {
-    themeClass() {
-      return `theme-${this.currentTheme}`;
-    },
-    loggedIn: get("user/isLoggedIn")
+    currentTheme: get("theme.current"),
+    isNavFixed: get("nav.isFixed"),
+
+    loggedIn: get("user/isLoggedIn"),
+
+    appClasses() {
+      return [`theme-${this.currentTheme}`, { "nav-fixed": this.isNavFixed }];
+    }
   }
 });
 
