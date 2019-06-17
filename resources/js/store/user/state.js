@@ -1,14 +1,14 @@
+import axios from "axios";
+
 import { getUser, loginUser, logoutUser, checkUser, registerUser } from "../../api/auth.js";
 
 const user = getUser();
-console.log("getUser", user);
 
 export default {
   namespaced: true,
 
   state: {
     user: user,
-    registeredUser: null,
     loggedIn: !!user,
     error: null,
     state: "idle"
@@ -32,8 +32,12 @@ export default {
     setState: (state, payload) => (state.state = payload),
     setError: (state, payload) => (state.error = payload),
     setLoggedIn: (state, payload) => (state.loggedIn = payload),
-    setUser: (state, payload) => (state.user = payload),
-    setRegisteredUser: (state, payload) => (state.registerUser = payload)
+    setUser: (state, payload) => {
+      console.log("mutation:setUser", payload);
+      state.user = Object.assign({}, payload.user, { token: payload.access_token });
+      axios.defaults.headers.common["Authorization"] = "Bearer " + state.user.token;
+      localStorage.setItem("user", JSON.stringify(state.user));
+    }
   },
 
   actions: {
@@ -57,15 +61,13 @@ export default {
       commit("setState", "success");
       commit("setError", null);
       commit("setLoggedIn", true);
-      commit("setUser", Object.assign({}, payload.user, { token: payload.access_token }));
-
-      localStorage.setItem("user", JSON.stringify(state.user));
+      commit("setUser", payload.data);
     },
 
     loginFailure({ commit }, payload) {
       console.log("action: user/loginFailure", payload);
       commit("setState", "failure");
-      commit("setError", payload.error);
+      commit("setError", payload);
     },
 
     register({ commit, dispatch }, payload) {
@@ -82,17 +84,19 @@ export default {
         });
     },
 
-    registerSuccess(state, payload) {
+    registerSuccess({ commit }, payload) {
       console.log("action: user/registerSuccess", payload);
       commit("setState", "success");
       commit("setError", null);
-      commit("setRegisteredUser", payload.user);
+      // commit("setRegisteredUser", payload.user);
+      commit("setLoggedIn", true);
+      commit("setUser", payload.data);
     },
 
-    registerFailure(state, payload) {
+    registerFailure({ commit }, payload) {
       console.log("action: user/registerFailure", payload);
       commit("setState", "failure");
-      commit("setError", payload.error);
+      commit("setError", payload);
     },
 
     logout({ commit }) {
