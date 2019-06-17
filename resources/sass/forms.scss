@@ -5,3 +5,24 @@
 .is-invalid {
     @apply border-red-900 border-2 border-solid;
 }
+
+.error-box {
+    @apply border-solid bg-red-800 border-2 border-red-900 p-4 rounded-lg;
+
+    ul {
+        @apply m-4;
+
+        list-style-type: disc;
+
+        li {
+            @apply ml-4;
+
+            ol {
+                @apply m-2;
+                list-style-type: decimal;
+
+                @apply ml-4;
+            }
+        }
+    }
+}

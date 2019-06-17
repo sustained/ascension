@@ -1,7 +1,7 @@
 <template>
-  <div class="container container-fixed">
+  <div class="container">
     <div class="center-full">
-      <div class="w-1/2">
+      <div class="w-3/4">
         <div class="card bg-discord-bg-1 shadow-lg">
           <h1>Login</h1>
 

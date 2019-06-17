@@ -1,5 +1,5 @@
 <template>
-  <div class="avoid-fixed-nav px-4">
+  <div class="container">
     <h1 class="text-lg font-bold my-2">Home</h1>
 
     <ul>

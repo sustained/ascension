@@ -29,7 +29,8 @@ div#app {
 // }
 
 .container {
-    min-height: calc(100vh - 56px);
+    // min-height: calc(100vh - 16px);
+    padding-top: 16px;
     max-width: 1200px;
 
     @apply mx-auto;
@@ -41,13 +42,12 @@ div#app {
 
 .nav-fixed {
     .container {
-        @apply min-h-screen;
+        min-height: calc(100vh - 72px);
+        padding-top: 72px;
+    }
 
-        padding-top: 56px;
-
-        .center-full {
-            min-height: calc(100vh - 56px);
-        }
+    .center-full {
+        min-height: calc(100vh - 72px);
     }
 }
 

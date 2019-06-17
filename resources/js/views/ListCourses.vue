@@ -1,5 +1,5 @@
 <template>
-  <div class="container avoid-fixed-nav">
+  <div class="container">
     <!-- <h2>List Courses</h2> -->
 
     <course-language-sidebar/>
