@@ -5,12 +5,12 @@ import Courses from "../views/ListCourses.vue";
 import NotFound from "../views/NotFound.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import AuthTest from "../views/AuthTest.vue";
+import AuthTest from "../views/test/AuthTest.vue";
 
 export default [
   { path: "/", component: Home, name: "home" },
   { path: "/user/login", component: Login, name: "login" },
-  // { path: "/register", component: Register, name: "register" },
+  { path: "/user/register", component: Register, name: "register" },
   { path: "/auth-test", component: AuthTest, name: "auth-test", meta: { requiresAuth: true } },
   { path: "/courses", component: Courses, name: "courses" },
   { path: "/courses/:course_id", component: Course, name: "course", props: true },
