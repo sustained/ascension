@@ -1,0 +1,39 @@
+.nav-main {
+    @apply bg-header text-default flex justify-between items-center px-2;
+
+    .nav-brand {
+        @apply font-bold text-2xl;
+
+        a {
+            border-bottom-width: 0 !important;
+        }
+    }
+
+    ul {
+        @apply flex;
+
+        li {
+            @apply p-4;
+
+            a.nav-link {
+                @apply p-4;
+            }
+
+            a[href="/"].router-link-exact-active,
+            a:not([href="/"]).router-link-active {
+                @apply border-blue-400 border-b-2 border-solid font-bold;
+            }
+        }
+    }
+}
+
+.nav-fixed {
+    .nav-main {
+        @apply fixed w-full;
+    }
+
+    .container-main {
+        padding-top: 56px;
+        @apply min-h-screen;
+    }
+}

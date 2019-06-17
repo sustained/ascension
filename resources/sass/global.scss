@@ -1,3 +1,7 @@
+/*
+    Global stuff
+*/
+
 html {
     font-family: "Open Sans", sans-serif;
 }
@@ -13,30 +17,43 @@ html {
 html,
 body,
 div#app {
-    @apply bg-container text-default min-h-screen;
+    @apply text-default min-h-screen bg-container;
 }
+
+/*
+    Containers
+*/
 
 // .main-container {
 //     @apply bg-container min-h-screen;
 // }
 
-.center-full {
-    @apply flex justify-center items-center min-h-screen avoid-fixed-nav;
-}
-
-.container,
-.container-fixed {
-    @apply min-h-screen;
-}
-
-.avoid-fixed-nav {
-    padding-top: 56px;
-}
-
-.container-fixed {
-    margin: 0 auto;
+.container {
+    min-height: calc(100vh - 56px);
     max-width: 1200px;
+
+    @apply mx-auto;
 }
+
+.center-full {
+    @apply flex justify-center items-center min-h-screen;
+}
+
+.nav-fixed {
+    .container {
+        @apply min-h-screen;
+
+        padding-top: 56px;
+
+        .center-full {
+            min-height: calc(100vh - 56px);
+        }
+    }
+}
+
+/*
+    Layout, Components
+*/
 
 .row {
     display: flex;
@@ -62,10 +79,6 @@ div#app {
     }
 }
 
-.is-invalid {
-    @apply border-red-900 border-2 border-solid;
-}
-
 .separator {
     padding-bottom: 0.75rem;
     margin-bottom: 0.75rem;
@@ -81,45 +94,10 @@ div#app {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.form-control {
-    @apply w-full p-2 text-gray-500 bg-discord-bg-2;
-}
-
-a.nav-link {
-    @apply p-4;
-}
-
-a[href="/"].router-link-exact-active,
-a:not([href="/"]).router-link-active {
-    @apply border-blue-400 border-b-2 border-solid;
-    font-weight: bold;
-}
-
-.nav-brand a {
-    border-bottom-width: 0 !important;
-}
-
 .box {
     @apply bg-gray-700 rounded-lg;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.nav-main {
-    @apply bg-header text-default flex justify-between items-center px-2;
-}
-
-.nav-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.nav-main ul {
-    display: flex;
-}
-
-.nav-main ul li {
-    @apply p-4;
 }

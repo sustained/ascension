@@ -1,0 +1,7 @@
+.form-control {
+    @apply w-full p-2 text-gray-500 bg-discord-bg-2;
+}
+
+.is-invalid {
+    @apply border-red-900 border-2 border-solid;
+}
