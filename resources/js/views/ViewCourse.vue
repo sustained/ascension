@@ -1,43 +1,39 @@
 <template>
-  <div class="container">
-    <div v-if="state === 'loaded'">
-      <h2>View Course &ndash; {{ course.title }}</h2>
-      <h3>Levels</h3>
+  <Loader
+    module="course"
+    action="load"
+    getter="isLoaded"
+    retrieve="getById"
+    :primary-key="$route.params.course_id"
+    :resource.sync="course"
+  >
+    <h2 class="text-2xl font-bold m-2">View Course &ndash; {{ course.title }}</h2>
 
-      <ul>
-        <li v-for="level in course.levels" :key="level.id">
-          <router-link
-            :to="{ name: 'level', params: { level_id: level.id, course_id: course.id } }"
-          >{{ level.title }}</router-link>
-        </li>
-      </ul>
-    </div>
+    <h3 class="text-xl font-bold m-2">Levels</h3>
 
-    <div v-else>Please wait...</div>
-  </div>
+    <ul class="list-outside list-disc ml-6">
+      <li v-for="level in course.levels" :key="level.id">
+        <router-link
+          :to="{ name: 'level', params: { level_id: level.id, course_id: course.id } }"
+        >{{ level.title }}</router-link>
+      </li>
+    </ul>
+  </Loader>
 </template>
 
 <script>
 import { get } from "vuex-pathify";
 
+import Loader from "../components/base/Loader.vue";
+
 export default {
-  computed: {
-    state: get("course/state"),
-    course: get("course/course")
+  data() {
+    return {
+      course: {}
+    };
   },
 
-  created() {
-    const courseId = this.$route.params.course_id;
-    const loaded = this.$store.getters["course/isLoaded"](courseId);
-
-    console.log(`Course #${courseId} isLoaded: ` + loaded);
-
-    if (!loaded) {
-      console.log("Loading course...");
-
-      this.$store.dispatch("course/load", courseId);
-    }
-  }
+  components: { Loader }
 };
 </script>
 
