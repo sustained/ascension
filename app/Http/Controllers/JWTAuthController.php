@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\CssSelector\Parser\Token;
 
 class JWTAuthController extends Controller
 {
@@ -49,7 +52,17 @@ class JWTAuthController extends Controller
 
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        try {
+            return $this->respondWithToken(auth()->refresh());
+        } catch (TokenExpiredException $e) {
+            return response()->json(['message' => 'Unable to refresh token using expired token.'], 422);
+        } catch (TokenBlacklistedException $e) {
+            return response()->json(['message' => 'Unable to refresh token using blacklisted token.'], 422);
+        } catch (JWTException $e) {
+            return response()->json(['message' => 'Unable to refresh token using unparseable token.'], 422);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function me()
