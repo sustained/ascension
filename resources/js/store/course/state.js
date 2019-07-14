@@ -40,7 +40,7 @@ export default {
       commit("setLoadingState", "loading");
 
       return http
-        .get(`/courses/${id}?load=levels.words`)
+        .get(`/api/courses/${id}?load=levels.words`)
         .then(response => {
           commit("setCourse", response.data);
           // commit("setCurrentCourse", state.courses.length - 1);

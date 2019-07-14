@@ -20,7 +20,7 @@ export default {
       commit("setLoadingState", "loading");
 
       http
-        .get("/courses")
+        .get("/api/courses")
         .then(({ data }) => {
           commit("setCoursesList", data);
           commit("setLoadingState", "loaded");
