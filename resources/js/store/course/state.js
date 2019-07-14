@@ -64,6 +64,13 @@ export default {
     },
 
     /*
+      Get a course by id.
+    */
+    getById(state) {
+      return courseId => (state.course.id == courseId ? state.course : null);
+    },
+
+    /*
       Return the words for the current level, if possible.
     */
     words(state, getters) {
