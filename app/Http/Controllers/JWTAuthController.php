@@ -56,13 +56,25 @@ class JWTAuthController extends Controller
         try {
             return $this->respondWithToken(auth()->refresh());
         } catch (TokenExpiredException $e) {
-            return response()->json(['message' => 'Unable to refresh token using expired token.'], 422);
+            return response()->json([
+                'reason' => 'expired',
+                'message' => 'Unable to refresh token using expired token.'
+            ], 422);
         } catch (TokenBlacklistedException $e) {
-            return response()->json(['message' => 'Unable to refresh token using blacklisted token.'], 422);
+            return response()->json([
+                'reason' => 'blacklisted',
+                'message' => 'Unable to refresh token using blacklisted token.'
+            ], 422);
         } catch (JWTException $e) {
-            return response()->json(['message' => 'Unable to refresh token using unparseable token.'], 422);
+            return response()->json([
+                'reason' => 'errored',
+                'message' => $e->getMessage()
+            ], 422);
         } catch (Exception $e) {
-            throw $e;
+            return response()->json([
+                'reason' => 'unknown',
+                'message' => 'Unable to refresh token due to unknown error.'
+            ], 500);
         }
     }
 
