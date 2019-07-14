@@ -2,6 +2,8 @@ const mix = require("laravel-mix");
 
 const tailwindcss = require("tailwindcss");
 
+require("laravel-mix-alias");
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,10 +15,16 @@ const tailwindcss = require("tailwindcss");
  |
  */
 
-mix.js("resources/js/app.js", "public/js");
-
-mix.sass("resources/sass/app.scss", "public/css").options({
-  extractVueStyles: true,
-  processCssUrls: false,
-  postCss: [tailwindcss("./tailwind.js")]
+mix.alias({
+  "@": "/resources/js",
+  "~": "/resources/sass"
 });
+
+mix
+  .js("resources/js/app.js", "public/js")
+  .sass("resources/sass/app.scss", "public/css")
+  .options({
+    extractVueStyles: true,
+    processCssUrls: false,
+    postCss: [tailwindcss("./tailwind.js")]
+  });
