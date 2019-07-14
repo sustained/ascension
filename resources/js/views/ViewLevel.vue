@@ -1,8 +1,8 @@
 <template>
   <div v-if="isLoaded" class="container">
-    <h2>View Level</h2>
+    <h2 class="text-2xl font-bold m-2">View Level</h2>
 
-    <ul>
+    <ul class="list-outside list-disc ml-6">
       <li v-for="word in words" :key="word.id">{{ word.source }} -> {{ word.target }}</li>
     </ul>
   </div>
