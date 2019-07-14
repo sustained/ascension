@@ -2,42 +2,14 @@
   <div class="container">
     <h1 class="text-lg font-bold my-2">Home</h1>
 
-    <ul>
+    <ul class="list-outside list-disc mt-2">
       <li>
-        <a href="#" @click="checkSession">Check Session</a>
+        <router-link to="/auth-check">Auth Check</router-link>
       </li>
+
       <li>
         <router-link to="/auth-test">Auth Test</router-link>
       </li>
     </ul>
-
-    <pre>{{ user }}</pre>
   </div>
 </template>
-
-<script>
-import http from "../http.js";
-
-import { checkUser } from "../api/auth.js";
-
-export default {
-  data() {
-    return {
-      user: null
-    };
-  },
-
-  created() {},
-
-  methods: {
-    checkSession() {
-      checkUser().then(({ data }) => {
-        this.user = data;
-      });
-    }
-  }
-};
-</script>
-
-<style scoped>
-</style>

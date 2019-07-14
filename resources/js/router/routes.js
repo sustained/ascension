@@ -11,7 +11,8 @@ export default [
   { path: "/", component: Home, name: "home" },
   { path: "/user/login", component: Login, name: "login" },
   { path: "/user/register", component: Register, name: "register" },
-  { path: "/auth-test", component: AuthTest, name: "auth-test", meta: { requiresAuth: true } },
+  { path: "/auth-test", component: AuthTest, name: "auth-test", meta: { requiresAuth: false } },
+  { path: "/auth-check", component: AuthTest, name: "auth-check", meta: { requiresAuth: true } },
   { path: "/courses", component: Courses, name: "courses" },
   { path: "/courses/:course_id", component: Course, name: "course", props: true },
   {
