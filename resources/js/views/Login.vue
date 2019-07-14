@@ -83,9 +83,10 @@ export default {
     return {
       redirectTo: "/",
 
+      // Pre-filled for testing.
       payload: {
-        email: "",
-        password: "",
+        email: "test@test.com",
+        password: "testtest",
         remember: false
       }
     };
