@@ -45,6 +45,8 @@ export default {
           commit("setCourse", response.data);
           // commit("setCurrentCourse", state.courses.length - 1);
           commit("setLoadingState", "loaded");
+
+          return state.course;
         })
         .catch(error => {
           commit("setErrorMessage", error.message);
