@@ -25,7 +25,7 @@
                   required
                   autofocus
                   v-model="payload.email"
-                >
+                />
               </div>
             </div>
 
@@ -42,7 +42,7 @@
                   name="password"
                   v-model="payload.password"
                   required
-                >
+                />
               </div>
             </div>
 
@@ -56,7 +56,7 @@
                   name="remember"
                   id="remember"
                   v-model="payload.remember"
-                >
+                />
 
                 <label class="text-sm" for="remember">Remember Me</label>
               </div>
