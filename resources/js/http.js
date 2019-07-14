@@ -1,38 +1,52 @@
 import axios from "axios";
-import app from "./app.js";
-import { getUser } from "./api/auth.js";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+
+import router from "./router/router.js";
+import store from "./store/store.js";
+import { getToken, setToken } from "./api/auth.js";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
-// let token = document.head.querySelector('meta[name="csrf-token"]');
+const http = axios.create();
 
-// if (token) {
-//   axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
-// } else {
-//   console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
-// }
+http.interceptors.request.use(request => {
+  request.headers["Authorization"] = "Bearer " + getToken();
 
-const user = getUser();
+  return request;
+});
 
-if (user) {
-  axios.defaults.headers.common["Authorization"] = "Bearer " + user.token;
-}
+createAuthRefreshInterceptor(http, function(failedRequest) {
+  console.log("[auth refresh interceptor] refreshing expired token");
 
-const http = axios.create({ baseURL: "/api" });
+  if (!getToken()) {
+    return router.push({ path: "user/login" });
+  }
 
-// http.interceptors.response.use(
-//   response => response,
-//   error => {
-//     if (error.response.status === 401) {
-//       console.info("got 401, redirecting to /login");
-//       app.$router.push({ name: "login" });
-//     } else {
-//       console.error(error);
-//     }
+  return http
+    .post("/api/auth/refresh")
+    .then(tokenRefreshResponse => {
+      console.log("[auth refresh interceptor] received new token");
+      console.log(
+        "[auth refresh interceptor] changed old token ending in " +
+          getToken().substr(-3) +
+          " to token ending in " +
+          tokenRefreshResponse.data.access_token.substr(-3)
+      );
+      setToken(tokenRefreshResponse.data);
 
-//     return Promise.reject(error);
-//   }
-// );
+      console.log("[auth refresh interceptor] finishing up queued requests");
+      failedRequest.response.config.headers["Authentication"] = "Bearer " + tokenRefreshResponse.data.access_token;
+
+      return Promise.resolve();
+    })
+    .catch(({ response }) => {
+      console.log("[auth refresh interceptor] unable to refresh token (probably expired)");
+
+      store.dispatch("user/clearUser").then(() => {
+        router.push({ path: "user/login", query: { expired: true } });
+      });
+    });
+});
 
 export default http;

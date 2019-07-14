@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import store from "../store/store.js";
 import routes from "./routes.js";
-import { getUser } from "../api/auth.js";
+import { getToken } from "../api/auth.js";
 
 Vue.use(VueRouter);
 
@@ -12,23 +12,28 @@ const router = new VueRouter({
   routes: routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const user = getUser();
-
-    store
-      .dispatch("user/check")
-      .then(result => {
-        console.log("user is authed?", result);
-        next();
-      })
-      .catch(error => {
-        console.log("user is not authed!", error);
-        next({
-          path: "/user/login",
-          query: { to: to.fullPath }
-        });
+    /*
+      If there is no token then there is no point in even hitting the endpoint.
+    */
+    if (!getToken()) {
+      return next({
+        path: "/user/login",
+        query: { to: to.fullPath, noToken: true }
       });
+    }
+
+    try {
+      await store.dispatch("user/get");
+
+      next();
+    } catch (e) {
+      next({
+        path: "/user/login",
+        query: { to: to.fullPath }
+      });
+    }
   } else {
     next();
   }

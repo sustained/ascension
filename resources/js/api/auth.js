@@ -1,31 +1,39 @@
 import http from "../http.js";
+import axios from "axios";
 
 export function loginUser(credentials) {
   return new Promise((resolve, reject) => {
-    console.log("auth, loginUser", credentials);
-    http
-      .post("/auth/login", credentials)
+    console.log("auth/loginUser", credentials);
+
+    axios
+      .post("/api/auth/login", credentials)
       .then(({ data }) => {
-        console.log("resolving login promise");
+        console.log("[api/auth#loginUser] success");
+
         resolve(data);
       })
-      .catch(({ response }) => {
-        console.log("rejecting login promise", response);
-        reject(response.data);
+      .catch(error => {
+        console.log("[api/auth#loginUser] failure");
+
+        reject(error.response.data.message);
       });
   });
 }
 
 export function registerUser(credentials) {
   return new Promise((resolve, reject) => {
+    console.log("[api/auth - registerUser]", credentials);
+
     http
-      .post("/auth/register", credentials)
-      .then(response => {
-        console.log("resolving register promise");
-        resolve(response);
+      .post("/api/auth/register", credentials)
+      .then(({ data }) => {
+        console.log("[api/auth#registerUser] success");
+
+        resolve(data);
       })
       .catch(({ response }) => {
-        console.log("rejecting register promise", response);
+        console.log("[api/auth#registerUser] failure");
+
         reject(response.data);
       });
   });
@@ -33,44 +41,79 @@ export function registerUser(credentials) {
 
 export function logoutUser() {
   return new Promise((resolve, reject) => {
+    console.log("[api/auth#logoutUser]");
+
     http
-      .post("/auth/logout")
-      .then(response => resolve(response))
+      .post("/api/auth/logout")
+      .then(({ data }) => {
+        console.log("[api/auth#logoutUser] success");
+
+        resolve(data);
+      })
       .catch(({ response }) => {
-        reject({
-          error: response.data.error,
-          status: response.status
-        });
+        console.log("[api/auth#logoutUser] failure");
+
+        reject(response.data);
       });
   });
-}
-
-export function checkUser() {
-  return new Promise((resolve, reject) => {
-    http
-      .post("/auth/me")
-      .then(response => resolve(response))
-      .catch(({ response }) => {
-        reject({
-          error: response.data.error,
-          status: response.status
-        });
-      });
-  });
-}
-
-export function setUser(user) {
-  localStorage.getItem("user");
-
-  if (!user) return null;
-
-  return JSON.parse(user);
 }
 
 export function getUser() {
-  const user = localStorage.getItem("user");
+  return new Promise((resolve, reject) => {
+    console.log("[api/auth#getUser]");
 
-  if (!user) return null;
+    http
+      .post("/api/auth/me")
+      .then(({ data }) => {
+        console.log("[api/auth#getUser] success");
 
-  return JSON.parse(user);
+        resolve(data);
+      })
+      .catch(({ response }) => {
+        console.log("[api/auth#getUser] failure");
+
+        reject(response.data);
+      });
+  });
+}
+
+export function refreshToken() {
+  return new Promise((resolve, reject) => {
+    console.log("[api/auth#refreshToken]");
+
+    http
+      .post("/api/auth/refresh")
+      .then(({ data }) => {
+        console.log("[api/auth#refreshToken] success");
+
+        resolve(data);
+      })
+      .catch(({ response }) => {
+        console.log("[api/auth#refreshToken] failure");
+
+        reject(response.data);
+      });
+  });
+}
+
+export function setToken(tokenData) {
+  console.log("[api/auth#setToken]");
+
+  localStorage.setItem("token", JSON.stringify(tokenData.access_token));
+}
+
+export function getToken() {
+  console.log("[api/auth#getToken]");
+
+  try {
+    return JSON.parse(localStorage.getItem("token"));
+  } catch (e) {
+    return "";
+  }
+}
+
+export function clearToken() {
+  console.log("[api/auth#clearToken]");
+
+  localStorage.clear("token");
 }

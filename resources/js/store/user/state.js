@@ -1,15 +1,17 @@
 import axios from "axios";
 
-import { getUser, loginUser, logoutUser, checkUser, registerUser } from "../../api/auth.js";
+import { loginUser, logoutUser, getUser, registerUser, getToken, setToken, clearToken } from "../../api/auth.js";
 
-const user = getUser();
+const token = getToken();
 
 export default {
   namespaced: true,
 
   state: {
-    user: user,
-    loggedIn: !!user,
+    id: null,
+    name: null,
+    email: null,
+    loggedIn: false,
     error: null,
     state: "idle"
   },
@@ -30,17 +32,27 @@ export default {
 
   mutations: {
     setState: (state, payload) => (state.state = payload),
+
     setError: (state, payload) => (state.error = payload),
+
     setLoggedIn: (state, payload) => (state.loggedIn = payload),
-    setUser: (state, payload) => {
-      console.log("mutation:setUser", payload);
-      state.user = Object.assign({}, payload.user, { token: payload.access_token });
-      axios.defaults.headers.common["Authorization"] = "Bearer " + state.user.token;
-      localStorage.setItem("user", JSON.stringify(state.user));
-    }
+
+    setToken: (state, payload) => setToken(payload),
+
+    setId: (state, payload) => (state.id = payload),
+
+    setName: (state, payload) => (state.name = payload),
+
+    setEmail: (state, payload) => (state.email = payload)
   },
 
   actions: {
+    get() {
+      return getUser()
+        .catch(error => Promise.reject(error))
+        .then(user => user);
+    },
+
     login({ commit, dispatch }, payload) {
       commit("setState", "loading");
 
@@ -57,15 +69,23 @@ export default {
 
     loginSuccess({ commit, state }, payload) {
       console.log("action: user/loginSuccess");
-      console.log("payload is", payload);
-      commit("setState", "success");
-      commit("setError", null);
-      commit("setLoggedIn", true);
-      commit("setUser", payload.data);
+
+      setToken(payload);
+
+      return getUser()
+        .then(user => {
+          console.log("gotUser", user);
+          commit("setState", "success");
+          commit("setError", null);
+          commit("setLoggedIn", true);
+          commit("setId", user.id);
+          commit("setName", user.name);
+          commit("setEmail", user.email);
+        })
+        .catch(console.error);
     },
 
     loginFailure({ commit }, payload) {
-      console.log("action: user/loginFailure", payload);
       commit("setState", "failure");
       commit("setError", payload);
     },
@@ -88,9 +108,8 @@ export default {
       console.log("action: user/registerSuccess", payload);
       commit("setState", "success");
       commit("setError", null);
-      // commit("setRegisteredUser", payload.user);
       commit("setLoggedIn", true);
-      commit("setUser", payload.data);
+      commit("setUser", payload);
     },
 
     registerFailure({ commit }, payload) {
@@ -99,29 +118,33 @@ export default {
       commit("setError", payload);
     },
 
-    logout({ commit }) {
+    logout({ commit, dispatch }) {
       commit("setState", "loading");
 
       return logoutUser()
         .catch(error => {
-          console.error("An error occured while logging out???");
+          commit("setState", "failure");
+          commit("setError", error.message);
+
+          dispatch("clearUser");
 
           return Promise.reject(error);
         })
         .then(result => {
-          console.info("Logged out successfully...");
-
           commit("setState", "success");
           commit("setError", null);
-          commit("setLoggedIn", false);
-          commit("setUser", null);
 
-          localStorage.removeItem("user");
+          dispatch("clearUser");
         });
     },
 
-    check() {
-      return checkUser();
+    clearUser({ commit }) {
+      commit("setLoggedIn", false);
+      commit("setId", null);
+      commit("setName", null);
+      commit("setEmail", null);
+
+      clearToken();
     }
   }
 };
