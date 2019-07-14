@@ -46,9 +46,13 @@ class JWTAuthController extends Controller
 
     public function logout()
     {
-        auth()->logout();
+        try {
+            auth()->logout();
 
-        return response()->json(['message' => 'You were successfully logged out.']);
+            return response()->json(['message' => 'You were successfully logged out.']);
+        } catch (TokenExpiredException $e) {
+            return response()->json(['message' => 'You could not be logged out because your session expired!']);
+        }
     }
 
     public function refresh()
