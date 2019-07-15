@@ -20,11 +20,16 @@ mix.alias({
   "~": "/resources/sass"
 });
 
+mix.webpackConfig({
+  devtool: "inline-source-map"
+});
+
 mix
-  .js("resources/js/app.js", "public/js")
-  .sass("resources/sass/app.scss", "public/css")
   .options({
     extractVueStyles: true,
     processCssUrls: false,
     postCss: [tailwindcss("./tailwind.js")]
-  });
+  })
+  .sourceMaps()
+  .js("resources/js/app.js", "public/js")
+  .sass("resources/sass/app.scss", "public/css");
