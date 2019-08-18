@@ -1,17 +1,11 @@
 <template>
   <div class="container">
-    <!-- <h2>List Courses</h2> -->
-
-    <course-language-sidebar/>
+    <!-- <course-language-sidebar /> -->
 
     <p v-if="isLoading">Loading courses...</p>
 
     <ul v-else-if="isLoaded" class="flex flex-wrap">
-      <li v-for="course in courses" :key="course.id" class="w-1/4 p-4">
-        <div class="box">
-          <router-link :to="`/courses/${course.id}`">{{ course.title }}</router-link>
-        </div>
-      </li>
+      <course-card v-for="course in courses" :key="course.id" :course="course" />
     </ul>
   </div>
 </template>
@@ -21,10 +15,11 @@ import { get, dispatch } from "vuex-pathify";
 
 import store from "../store/store.js";
 
+import CourseCard from "./courses/CourseCard.vue";
 import CourseLanguageSidebar from "./courses/CourseLanguageSidebar.vue";
 
 export default {
-  components: { CourseLanguageSidebar },
+  components: { CourseCard, CourseLanguageSidebar },
 
   async beforeRouteEnter(to, from, next) {
     if (store.state.courses.state !== "loaded") {
