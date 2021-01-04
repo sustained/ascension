@@ -17,7 +17,7 @@
         "nuke": " php artisan cache:clear && php artisan route:clear && php artisan config:clear && php artisan view:clear"
     },
     "devDependencies": {
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "jquery": "^3.4.1",
